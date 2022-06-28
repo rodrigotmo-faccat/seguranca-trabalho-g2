@@ -3,18 +3,12 @@
     <title>Trabalho G2</title>
 </head>
 <body>
-    <h1>Cadastre o seu currículo</h1>
-    <form method="post">
-        <label for="name">Nome:</label>
-        <input type="text" name="name" id="name" required>
-        <label for="phone">Telefone:</label>
-        <input type="tel" name="phone" id="phone">
-        <label for="email">Email:</label>
-        <input type="email" name="email" id="email" required>
-        <label for="web-adress">Endereço WEB:</label>
-        <input type="text" name="web-adress" id="web-adress">
-        <label for="experience">Experiência profissional:</label>
-        <textarea name="experience" id="experience" rows="5" cols="50" required></textarea>
-        <input type="submit" value="Cadastrar">
+    <h1>Cadastros atuais</h1>
+    <form method="get">
+        <input type="number" name="id" id="id" value="{infos.id}" hidden>
+        <label>Nome:</label>
+        <span>{infos.name}</span>
+        <label>Email:</label>
+        <span>{infos.email}</span>
     </form>
 </body>
