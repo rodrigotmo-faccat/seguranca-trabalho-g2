@@ -1,25 +1,55 @@
 const express = require('express');
 const app = express();
+const handlebars = require('express-handlebars');
 const path = require('path');
-//const router = express.Router();
-const db = require('./db');
-const Curriculo = require('./Curriculo');
+//const db = require('./models/db');
+const Curriculo = require('./models/Curriculo');
+const bodyParser = require('body-parser');
 
-app.get('/', async function(req, res) {
-    res.sendFile(path.join(__dirname+'/index.html'));
-    const cvs = Curriculo.findAll();
-    console.log(cvs);
-})
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 
-app.post('/cadastrar', async function(req, res) {
-    await Curriculo.create({name: "Rodrigo", phone: "51985670888", email: "rodrigotmo@gmail.com", web_address: "www.bla.com.br", experience: "Programador"}).then(() => {
-        res.sendStatus(200);
-        console.log('Cadastrado com sucesso');
-    }).catch((error) => {
-        res.sendStatus(400);
-        console.log('Falha no cadastro', error);
+app.engine('handlebars', handlebars.engine({defaultLayout: 'main'}));
+app.set('view engine', 'handlebars');
+
+app.get('/', function(req, res) {
+    Curriculo.findAll().then((curriculos) => {
+        res.render('curriculo', {curriculos: curriculos});
     });
-    //res.sendStatus(200);
 });
 
-app.listen(process.env.port || 3000);
+app.get('/cadastrar-curriculo', function(req, res) {
+    res.render('cadastrar-curriculo');
+});
+
+app.get('/consultar/:id', function(req, res) {
+    Curriculo.findAll({
+        where: {
+            id: req.params.id
+        }
+    })
+    .then((curriculo) => {
+      res.render("consultar", { curriculo: curriculo[0] });
+    })
+    .catch((error) => {
+      console.log('Erro ao consultar registro', error);
+    });
+});
+
+app.post('/add-curriculo', function(req, res) {
+    Curriculo.create({
+        name: req.body.name, 
+        phone: req.body.phone, 
+        email: req.body.email, 
+        web_address: req.body.web_address, 
+        experience: req.body.experience
+    }).then(() => {
+        res.redirect('/');
+        console.log('Cadastrado com sucesso');
+    }).catch((error) => {
+        res.sendStatus(400); 
+        console.log('Falha no cadastro', error);
+    });
+});
+
+app.listen(3000);

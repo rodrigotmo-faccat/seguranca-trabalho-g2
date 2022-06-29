@@ -1,36 +1,34 @@
-const Sequelize = require('sequelize');
 const db = require('./db');
 
-const Curriculo = db.define('curriculo', {
+const Curriculo = db.sequelize.define('curriculo', {
     id: {
-        type: Sequelize.INTEGER,
+        type: db.Sequelize.INTEGER,
         autoIncrement: true,
         allowNull: false,
         primaryKey: true
     },
     name: {
-        type: Sequelize.STRING,
+        type: db.Sequelize.STRING,
         allowNull: false,
     },
     phone: {
-        type: Sequelize.STRING,
+        type: db.Sequelize.STRING,
         allowNull: true
     },
     email: {
-        type: Sequelize.STRING,
+        type: db.Sequelize.STRING,
         allowNull: false
     },
     web_address: {
-        type: Sequelize.STRING,
+        type: db.Sequelize.STRING,
         allowNull: true
     },
     experience: {
-        type: Sequelize.STRING(1000),
+        type: db.Sequelize.STRING(1000),
         allowNull: false
     }
 });
 
-//Curriculo.sync();
 //Curriculo.sync({ alter: true });
 
 module.exports = Curriculo;

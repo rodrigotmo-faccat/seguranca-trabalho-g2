@@ -8,4 +8,4 @@ sequelize.authenticate().then(() => {
     console.log('Erro ao conectar no db - ', error);
 });
 
-module.exports = sequelize;
+module.exports = {Sequelize, sequelize};

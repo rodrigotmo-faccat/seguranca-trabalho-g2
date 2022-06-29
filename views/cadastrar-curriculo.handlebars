@@ -1,0 +1,19 @@
+<h1 style="text-align: center;">Cadastre o seu currículo</h1>
+<form action="/add-curriculo" method="POST" style="text-align: center;">
+    <label for="name">Nome:</label><br>
+    <input type="text" name="name" id="name" required>
+    <br><br>
+    <label for="phone">Telefone:</label><br>
+    <input type="tel" name="phone" id="phone">
+    <br><br>
+    <label for="email">Email:</label><br>
+    <input type="email" name="email" id="email" required>
+    <br><br>
+    <label for="web_address">Endereço WEB:</label><br>
+    <input type="text" name="web_address" id="web_address">
+    <br><br>
+    <label for="experience">Experiência profissional:</label><br>
+    <textarea name="experience" id="experience" rows="5" cols="50" maxlength="1000" required></textarea>
+    <br><br>
+    <input type="submit" value="Cadastrar">
+</form>
