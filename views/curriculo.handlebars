@@ -1,8 +1,8 @@
 <h1>Lista de Currículos</h1>
 {{#each curriculos}}
-    <input type="hidden" name="id" value="{{dataValues.id}}" />
-    Nome: {{dataValues.name}}<br>
-    Email: {{dataValues.email}}<br>
-    <a href="/consultar/{{dataValues.id}}"><button>Consultar</button></a>
+    <input type="hidden" name="id" value="{{id}}" />
+    Nome: {{name}}<br>
+    Email: {{email}}<br>
+    <a href="/consultar/{{id}}"><button>Consultar</button></a>
     <hr>
 {{/each}}
