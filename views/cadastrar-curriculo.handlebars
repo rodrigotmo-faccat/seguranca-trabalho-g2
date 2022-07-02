@@ -1,19 +1,107 @@
-<h1 style="text-align: center;">Cadastre o seu currículo</h1>
-<form action="/add-curriculo" method="POST" style="text-align: center;">
-    <label for="name">Nome:</label><br>
-    <input type="text" name="name" id="name" required>
-    <br><br>
-    <label for="phone">Telefone:</label><br>
-    <input type="tel" name="phone" id="phone">
-    <br><br>
-    <label for="email">Email:</label><br>
-    <input type="email" name="email" id="email" required>
-    <br><br>
-    <label for="web_address">Endereço WEB:</label><br>
-    <input type="text" name="web_address" id="web_address">
-    <br><br>
-    <label for="experience">Experiência profissional:</label><br>
-    <textarea name="experience" id="experience" rows="5" cols="50" maxlength="1000" required></textarea>
-    <br><br>
-    <input type="submit" value="Cadastrar">
-</form>
+<div
+  style="
+  background-color: rgba(0, 0, 0, 0.692); 
+  display: flex; 
+  flex-direction: column;
+  justify-content: center; 
+  align-items: center; 
+  height: 100vh; 
+  border:none;
+"
+>
+  <div
+    style="
+        background-color: rgba(255, 255, 255, 0.863);
+        width: 100%;
+        max-width: 400px; 
+        height: 500px;
+        border-radius: 10px;
+        padding: 10px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between; 
+        align-items: flex-start; 
+    "
+  >
+
+    <div
+      style="
+        background-color: rgba(0, 0, 0, 0.692); 
+        color: rgba(255, 255, 255, 0.863);
+        width: 100%; 
+        border-radius: 10px;
+        display:flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+    "
+    >
+      <h1>Cadastre o seu currículo</h1>
+    </div>
+
+    <form
+      action="/add-curriculo"
+      method="POST"
+      style="
+      width: 100%; 
+      height: 380px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+    "
+    >
+      <label for="name">
+        <strong>Nome: </strong>
+      </label>
+      <input type="text" name="name" id="name" required />
+
+      <label for="phone">
+        <strong>Telefone: </strong>
+      </label>
+      <input type="tel" name="phone" id="phone" />
+
+      <label for="email">
+        <strong>Email: </strong>
+      </label>
+      <input type="email" name="email" id="email" required />
+
+      <label for="web_address">
+        <strong>Endereço WEB: </strong>
+      </label>
+      <input type="text" name="web_address" id="web_address" />
+
+      <label for="experience">
+        <strong>Experiência profissional: </strong>
+      </label>
+
+      <textarea
+        name="experience"
+        id="experience"
+        rows="5"
+        cols="40"
+        maxlength="1000"
+        style="
+        resize: none
+        "
+        required
+      ></textarea>
+
+      <input
+        type="submit"
+        value="Cadastrar"
+        style="
+        background-color: rgba(0, 0, 0, 0.692); 
+        color: rgba(255, 255, 255, 0.863);
+        border: none; 
+        padding: 5px 50px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        cursor:pointer
+        "
+      />
+    </form>
+  </div>
+</div>

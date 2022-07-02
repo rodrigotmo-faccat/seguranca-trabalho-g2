@@ -1,7 +1,77 @@
-{{#with curriculo}}
-    Nome: {{dataValues.name}}<br>
-    Telefone: {{dataValues.phone}}<br>
-    Email: {{dataValues.email}}<br>
-    Endereço WEB: {{dataValues.web_address}}<br>
-    Experiência Profissional: {{dataValues.experience}}<br>
-{{/with}}
+<div
+  style=" 
+  background-color: rgba(0, 0, 0, 0.692); 
+  display: flex; 
+  justify-content: center; 
+  align-items: center; 
+  height: 100vh; 
+  border:none;
+  "
+>
+  <div
+    style="
+    background-color: rgba(255, 255, 255, 0.863);
+    width: 100%;
+    max-width: 400px; 
+    height: 450px;
+    border-radius: 10px;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; 
+    align-items: flex-start; 
+    "
+  >
+    <div
+      style="
+        background-color: rgba(0, 0, 0, 0.692); 
+        color: rgba(255, 255, 255, 0.863);
+        width: 100%; 
+        border-radius: 10px;
+        display:flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        "
+    >
+      <h1>Dados Cadastrados</h1>
+    </div>
+    <div
+      style="
+        padding: 20px;
+        height: 300px;
+        list-style-type: none;
+        display:flex;
+        flex-direction: column;
+        justify-content: space-between;
+        "
+    >
+      {{#with curriculo}}
+        <li>
+          <strong>Nome: </strong>
+          {{dataValues.name}}
+        </li>
+
+        <li>
+          <strong>Telefone: </strong>
+          {{dataValues.phone}}
+        </li>
+
+        <li>
+          <strong>Email: </strong>
+          {{dataValues.email}}
+        </li>
+
+        <li>
+          <strong>Endereço WEB: </strong>
+          {{dataValues.web_address}}
+        </li>
+
+        <li>
+          <strong>Experiência Profissional: </strong>
+          {{dataValues.experience}}
+        </li>
+      {{/with}}
+    </div>
+  </div>
+</div>
