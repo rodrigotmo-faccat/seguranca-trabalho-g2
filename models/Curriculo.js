@@ -29,6 +29,4 @@ const Curriculo = db.sequelize.define('curriculo', {
     }
 });
 
-//Curriculo.sync({ alter: true });
-
 module.exports = Curriculo;
