@@ -1,5 +1,4 @@
-<div
-  style="
+<div style="
   background-color: rgba(0, 0, 0, 0.692); 
   display: flex; 
   flex-direction: column;
@@ -7,10 +6,8 @@
   align-items: center; 
   height: 100vh; 
   border:none;
-"
->
-  <div
-    style="
+">
+  <div style="
         background-color: rgba(255, 255, 255, 0.863);
         width: 100%;
         max-width: 400px; 
@@ -21,11 +18,8 @@
         flex-direction: column;
         justify-content: space-between; 
         align-items: flex-start; 
-    "
-  >
-
-    <div
-      style="
+    ">
+    <div style="
         background-color: rgba(0, 0, 0, 0.692); 
         color: rgba(255, 255, 255, 0.863);
         width: 100%; 
@@ -34,63 +28,44 @@
         flex-direction: row;
         justify-content: center;
         align-items: center;
-    "
-    >
-      <h1>Cadastre o seu currículo</h1>
+    ">
+      <h1 style="text-align: center;">Cadastre o seu currículo</h1>
     </div>
-
-    <form
-      action="/add-curriculo"
-      method="POST"
-      style="
+    <form id="coolForm" action="/add-curriculo" method="POST" style="
       width: 100%; 
       height: 380px;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: space-between;
-    "
-    >
+      ">
+      <input type="hidden" name="_csrf" value="{{crsfToken}}" />
       <label for="name">
-        <strong>Nome: </strong>
+        Nome:
       </label>
-      <input type="text" name="name" id="name" required />
+      <input type="text" name="name" id="name" autofocus required />
 
       <label for="phone">
-        <strong>Telefone: </strong>
+        Telefone:
       </label>
-      <input type="tel" name="phone" id="phone" />
+      <input type="tel" name="phone" id="phone" placeholder="DDD+número" minlength="10" maxlength="11" />
 
       <label for="email">
-        <strong>Email: </strong>
+        Email:
       </label>
-      <input type="email" name="email" id="email" required />
+      <input type="email" name="email" id="email" placeholder="example@example.com" required />
 
       <label for="web_address">
-        <strong>Endereço WEB: </strong>
+        Endereço WEB:
       </label>
       <input type="text" name="web_address" id="web_address" />
 
       <label for="experience">
-        <strong>Experiência profissional: </strong>
+        Experiência profissional:
       </label>
+      <textarea name="experience" id="experience" rows="5" cols="50" maxlength="1000" required></textarea>
 
-      <textarea
-        name="experience"
-        id="experience"
-        rows="5"
-        cols="40"
-        maxlength="1000"
-        style="
-        resize: none
-        "
-        required
-      ></textarea>
-
-      <input
-        type="submit"
-        value="Cadastrar"
-        style="
+      <input type="submit" value="Cadastrar" style="
         background-color: rgba(0, 0, 0, 0.692); 
         color: rgba(255, 255, 255, 0.863);
         border: none; 
@@ -100,8 +75,113 @@
         display: inline-block;
         font-size: 16px;
         cursor:pointer
-        "
-      />
+        " />
     </form>
   </div>
 </div>
+<script>
+  function validateName(element) {
+    let value = element.target.value;
+
+    if (typeof value != 'string') {
+      alert('Insira somente letras no campo Nome');
+      return false;
+    }
+
+    const regex = /^[a-zA-Z+ ]+$/;
+    const result = regex.test(value);
+
+    if (!result) {
+      alert('Insira somente letras e espaços no campo Nome');
+      return false;
+    }
+
+    return true;
+  }
+
+  function validatePhoneField(element) {
+    let value = element.target.value;
+    let numericValue = parseInt(value);
+
+    if (!numericValue || isNaN(numericValue)) {
+      alert('Insira somente números no campo Telefone');
+      return false;
+    }
+
+    if (value.length < 10 || value.length > 11) {
+      alert('O campo Telefone deve ter no mínimo 10 e no máximo 11 números');
+      return false;
+    }
+
+    return true;
+  }
+
+  function validateEmail(element) {
+    let value = element.target.value;
+
+    if (typeof value != 'string') {
+      alert('Insira somente letras no campo Email');
+      return false;
+    }
+
+    const regex = /^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$/;
+    const result = regex.test(value);
+
+    if (!result) {
+      alert('Insira um formato de email válido');
+      return false;
+    }
+
+    return true;
+  }
+
+  function validateWebAddress(element) {
+    let value = element.target.value;
+
+    if (typeof value != 'string') {
+      alert('Insira somente letras no campo Endereço WEB');
+      return false;
+    }
+
+    const regex = /^[a-zA-Z0-9_.-]+$/;
+    const result = regex.test(value);
+
+    if (!result) {
+      alert('Insira um formato de endereço WEB válido');
+      return false;
+    }
+
+    return true;
+  }
+
+  function validateExperience(element) {
+    let value = element.target.value;
+
+    if (typeof value != 'string') {
+      alert('Insira somente letras no campo Experiência profissional');
+      return false;
+    }
+
+    const regex = /^[a-zA-Z0-9., ]+$/;
+    const result = regex.test(value);
+
+    if (!result) {
+      alert('Insira somente letras, números, espaços, ponto e vírgula no campo Experiência profissional');
+      return false;
+    }
+
+    return true;
+  }
+
+  document.getElementById('name').addEventListener('focusout', validateName);
+  document.getElementById('phone').addEventListener('focusout', validatePhoneField);
+  document.getElementById('email').addEventListener('focusout', validateEmail);
+  document.getElementById('web_address').addEventListener('focusout', validateWebAddress);
+  document.getElementById('experience').addEventListener('focusout', validateExperience);
+
+  document.getElementById('coolForm').addEventListener('submit', validateName);
+  document.getElementById('coolForm').addEventListener('submit', validatePhoneField);
+  document.getElementById('coolForm').addEventListener('submit', validateEmail);
+  document.getElementById('coolForm').addEventListener('submit', validateWebAddress);
+  document.getElementById('coolForm').addEventListener('submit', validateExperience);
+</script>
