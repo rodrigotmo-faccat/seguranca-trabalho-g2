@@ -9,18 +9,19 @@ const db = require('./models/db');
 
 // Modelo de tabela
 const Curriculo = require('./models/Curriculo');
-const QueryTypes  = require('sequelize');
+const QueryTypes = require('sequelize');
 const bodyParser = require('body-parser');
+const xss = require('XSS')
 
 // Métodos permitidos
-const allowedMethods = ['GET','HEAD','POST'];
+const allowedMethods = ['GET', 'HEAD', 'POST'];
 
 // Gerando uma session no lado do servidor para prevenir XSS
 const session = require('express-session');
 app.use(session({
     secret: 'YOUSHALLNOTPASS!',
     saveUninitialized: true,
-    cookie: {maxAge: 600000},
+    cookie: { maxAge: 600000 },
     resave: false,
 }));
 
@@ -31,10 +32,10 @@ app.use(helmet.frameguard({ action: 'DENY' }));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-app.engine('handlebars', handlebars.engine({defaultLayout: 'main'}));
+app.engine('handlebars', handlebars.engine({ defaultLayout: 'main' }));
 app.set('view engine', 'handlebars');
 
-app.get('/', function(req, res) {
+app.get('/', function (req, res) {
     if (!allowedMethods.includes(req.method)) {
         return res.send(405, 'Method Not Allowed');
     }
@@ -44,22 +45,22 @@ app.get('/', function(req, res) {
             type: QueryTypes.SELECT,
         }
     ).then((curriculos) => {
-        res.render("curriculo", {curriculos: curriculos[0] });
+        res.render("curriculo", { curriculos: curriculos[0] });
     }).catch((error) => {
         console.log('Erro ao consultar registros', error);
     });
 });
 
-app.get('/cadastrar-curriculo', function(req, res) {
+app.get('/cadastrar-curriculo', function (req, res) {
     if (!allowedMethods.includes(req.method)) {
         return res.status(405).send('Method Not Allowed');
     }
     const secretToken = token();
     req.session.token = secretToken;
-    res.render('cadastrar-curriculo', {crsfToken: secretToken});
+    res.render('cadastrar-curriculo', { crsfToken: secretToken });
 });
 
-app.get('/consultar/:id', function(req, res) {
+app.get('/consultar/:id', function (req, res) {
     if (!allowedMethods.includes(req.method)) {
         return res.status(405).send('Method Not Allowed');
     }
@@ -78,7 +79,7 @@ app.get('/consultar/:id', function(req, res) {
     });
 });
 
-app.post('/add-curriculo', function(req, res) {
+app.post('/add-curriculo', function (req, res) {
     if (!allowedMethods.includes(req.method)) {
         return res.status(405).send('Método não permitido');
     }
@@ -111,26 +112,26 @@ app.post('/add-curriculo', function(req, res) {
 
     db.sequelize.query('INSERT INTO curriculos (name, phone, email, web_address, experience) VALUES (?,?,?,?,?)',
         {
-            replacements: [name, 
-                phone, 
-                email, 
-                web_address, 
+            replacements: [name,
+                phone,
+                email,
+                web_address,
                 experience],
-                type: QueryTypes.INSERT,
+            type: QueryTypes.INSERT,
         }).then(() => {
             res.redirect('/');
             console.log('Cadastrado com sucesso');
         }).catch((error) => {
-            res.sendStatus(400); 
+            res.sendStatus(400);
             console.log('Falha no cadastro', error);
         });
 });
 
-const rand = function() {
+const rand = function () {
     return Math.random().toString(36).substr(2);
 };
-  
-const token = function() {
+
+const token = function () {
     return rand() + rand();
 };
 
