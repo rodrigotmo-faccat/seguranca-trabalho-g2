@@ -11,7 +11,6 @@ const db = require('./models/db');
 const Curriculo = require('./models/Curriculo');
 const QueryTypes = require('sequelize');
 const bodyParser = require('body-parser');
-const xss = require('XSS')
 
 // Métodos permitidos
 const allowedMethods = ['GET', 'HEAD', 'POST'];
@@ -92,7 +91,7 @@ app.post('/add-curriculo', function (req, res) {
     const phone = req.body.phone.replace(/[^0-9]/g, '');
     const email = req.body.email.replace(/[^A-Za-z0-9.\-@]/g, '');
     const web_address = req.body.web_address.replace(/[^A-Za-z0-9.\-]/g, '');
-    const experience = req.body.experience.replace(/[^A-Za-z0-9.! ,]/g, '');
+    const experience = req.body.experience.replace(/[^A-Za-z0-9. ,]/g, '');
 
     if (typeof name != 'string') {
         res.sendStatus(400);
@@ -110,7 +109,7 @@ app.post('/add-curriculo', function (req, res) {
         res.sendStatus(400);
     }
 
-    db.sequelize.query('INSERT INTO curriculos (name, phone, email, web_address, experience) VALUES (?,?,?,?,?)',
+    db.sequelize.query('INSERT INTO curriculos (name, phone, email, web_address, experience) VALUES (?,?,?,?,?);',
         {
             replacements: [name,
                 phone,

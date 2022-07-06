@@ -31,7 +31,7 @@
     ">
       <h1 style="text-align: center;">Cadastre o seu currículo</h1>
     </div>
-    <form id="coolForm" action="/add-curriculo" method="POST" style="
+    <form id="gandalf" action="/add-curriculo" method="POST" style="
       width: 100%; 
       height: 380px;
       display: flex;
@@ -81,18 +81,16 @@
 </div>
 <script>
   function validateName(element) {
-    let value = element.target.value;
+    let value = element.value;
 
     if (typeof value != 'string') {
-      alert('Insira somente letras no campo Nome');
       return false;
     }
 
-    const regex = /^[a-zA-Z+ ]+$/;
+    const regex = new RegExp(/[a-zA-Z+ ]/, 'g');
     const result = regex.test(value);
 
-    if (!result) {
-      alert('Insira somente letras e espaços no campo Nome');
+    if (result == false) {
       return false;
     }
 
@@ -100,16 +98,16 @@
   }
 
   function validatePhoneField(element) {
-    let value = element.target.value;
-    let numericValue = parseInt(value);
+    let value = element.value;
 
-    if (!numericValue || isNaN(numericValue)) {
-      alert('Insira somente números no campo Telefone');
+    const regex = /^[0-9]$/;
+    const result = regex.test(value);
+
+    if (result == false) {
       return false;
     }
 
     if (value.length < 10 || value.length > 11) {
-      alert('O campo Telefone deve ter no mínimo 10 e no máximo 11 números');
       return false;
     }
 
@@ -117,18 +115,16 @@
   }
 
   function validateEmail(element) {
-    let value = element.target.value;
+    let value = element.value;
 
     if (typeof value != 'string') {
-      alert('Insira somente letras no campo Email');
       return false;
     }
 
     const regex = /^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$/;
     const result = regex.test(value);
 
-    if (!result) {
-      alert('Insira um formato de email válido');
+    if (result == false) {
       return false;
     }
 
@@ -136,18 +132,16 @@
   }
 
   function validateWebAddress(element) {
-    let value = element.target.value;
+    let name = element.value;
 
-    if (typeof value != 'string') {
-      alert('Insira somente letras no campo Endereço WEB');
+    if (typeof name != 'string') {
       return false;
     }
 
     const regex = /^[a-zA-Z0-9_.-]+$/;
-    const result = regex.test(value);
+    const result = regex.test(name);
 
-    if (!result) {
-      alert('Insira um formato de endereço WEB válido');
+    if (result == false) {
       return false;
     }
 
@@ -155,33 +149,52 @@
   }
 
   function validateExperience(element) {
-    let value = element.target.value;
+    let value = element.value;
 
     if (typeof value != 'string') {
-      alert('Insira somente letras no campo Experiência profissional');
       return false;
     }
 
     const regex = /^[a-zA-Z0-9., ]+$/;
     const result = regex.test(value);
 
-    if (!result) {
-      alert('Insira somente letras, números, espaços, ponto e vírgula no campo Experiência profissional');
+    if (result == false) {
       return false;
     }
 
     return true;
   }
 
-  document.getElementById('name').addEventListener('focusout', validateName);
-  document.getElementById('phone').addEventListener('focusout', validatePhoneField);
-  document.getElementById('email').addEventListener('focusout', validateEmail);
-  document.getElementById('web_address').addEventListener('focusout', validateWebAddress);
-  document.getElementById('experience').addEventListener('focusout', validateExperience);
+  let youShallNotPass = document.getElementById('gandalf');
+  youShallNotPass.addEventListener('submit', function(e) {
+    
+    const nameElement = document.getElementById('name');
+    const phoneElement = document.getElementById('phone');
+    const emailElement = document.getElementById('email');
+    const web_addressElement = document.getElementById('web_address');
+    const experienceElement = document.getElementById('experience');
 
-  document.getElementById('coolForm').addEventListener('submit', validateName);
-  document.getElementById('coolForm').addEventListener('submit', validatePhoneField);
-  document.getElementById('coolForm').addEventListener('submit', validateEmail);
-  document.getElementById('coolForm').addEventListener('submit', validateWebAddress);
-  document.getElementById('coolForm').addEventListener('submit', validateExperience);
+    if (validateName(nameElement) == false) {
+      e.preventDefault();
+      return;
+    }
+    if (validatePhoneField(phoneElement) == false) {
+      e.preventDefault();
+      return;
+    }
+    if (validateEmail(emailElement) == false) {
+      e.preventDefault();
+      return;
+    }
+    if (validateWebAddress(web_addressElement) == false) {
+      e.preventDefault();
+      return;
+    }
+    if (validateExperience(experienceElement) == false) {
+      e.preventDefault();
+      return;
+    }
+
+    youShallNotPass.submit();
+  });
 </script>
