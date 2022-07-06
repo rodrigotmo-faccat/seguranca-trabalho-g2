@@ -1,6 +1,6 @@
 const Sequelize = require('sequelize');
 
-const sequelize = new Sequelize('mysql://localhost:3306/trabalho_g2', { username: 'root', password: 'root' });
+const sequelize = new Sequelize('mysql://localhost:3360/trabalho_g2', { username: 'root', password: 'root' });
 
 sequelize.authenticate().then(() => {
     console.log('Conectou no db');
@@ -8,4 +8,4 @@ sequelize.authenticate().then(() => {
     console.log('Erro ao conectar no db - ', error);
 });
 
-module.exports = { Sequelize, sequelize };
+module.exports = {Sequelize, sequelize};
