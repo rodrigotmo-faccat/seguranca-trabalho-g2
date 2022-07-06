@@ -82,86 +82,96 @@
 <script>
   function validateName(element) {
     let value = element.value;
+    let valueEncoded = encodeURIComponent(value);
 
-    if (typeof value != 'string') {
+    if (typeof valueEncoded != 'string') {
       return false;
     }
 
-    const regex = new RegExp(/[a-zA-Z+ ]/, 'g');
-    const result = regex.test(value);
+    const regex = new RegExp(/[!"#\$%&'\(\)\*\+\-,\.\/:;<>=\?@\[\]\\\^_`\{\}\|~]/, 'g');
+    const result = regex.test(valueEncoded);
 
-    if (result == false) {
+    if (result) {
       return false;
     }
 
+    if (valueEncoded.trim().length == 0) {
+      return false;
+    }
+
+    element.value = valueEncoded;
     return true;
   }
 
   function validatePhoneField(element) {
     let value = element.value;
+    let valueEncoded = encodeURIComponent(value);
 
-    const regex = /^[0-9]$/;
-    const result = regex.test(value);
+    const regex = new RegExp(/[!"#\$%&'\(\)\*\+\-,\.\/:;<>=\?@\[\]\\\^_`\{\}\|~] /, 'g');
+    const result = regex.test(valueEncoded);
 
-    if (result == false) {
+    if (result) {
       return false;
     }
 
-    if (value.length < 10 || value.length > 11) {
-      return false;
-    }
-
+    element.value = valueEncoded;
     return true;
   }
 
   function validateEmail(element) {
     let value = element.value;
+    let valueEncoded = encodeURIComponent(value);
 
-    if (typeof value != 'string') {
+    if (typeof valueEncoded != 'string') {
       return false;
     }
 
-    const regex = /^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$/;
-    const result = regex.test(value);
+    const regex = new RegExp(/[a-zA-Z0-9+_.-]+[%40][a-zA-Z0-9.-]+/, 'g');
+    const result = regex.test(valueEncoded);
 
     if (result == false) {
       return false;
     }
 
+    element.value = valueEncoded;
     return true;
   }
 
   function validateWebAddress(element) {
-    let name = element.value;
+    let value = element.value;
+    let valueEncoded = encodeURIComponent(value);
 
-    if (typeof name != 'string') {
+    if (typeof valueEncoded != 'string') {
       return false;
     }
 
-    const regex = /^[a-zA-Z0-9_.-]+$/;
-    const result = regex.test(name);
+    const regex = new RegExp(/[!"#\$%&'\(\)\*\+,\/:;<>=\?@\[\]\\\^`\{\}\|~ ]/, 'g');
+    const result = regex.test(valueEncoded);
 
-    if (result == false) {
+    if (result) {
       return false;
     }
 
+    element.value = valueEncoded;
     return true;
   }
 
   function validateExperience(element) {
     let value = element.value;
+    let valueEncoded = encodeURIComponent(value);
 
-    if (typeof value != 'string') {
+    if (typeof valueEncoded != 'string') {
       return false;
     }
 
-    const regex = /^[a-zA-Z0-9., ]+$/;
-    const result = regex.test(value);
+    const regex = new RegExp(/[!"#\$%&'\(\)\*\+\-\/:;<>=\?@\[\]\\\^_`\{\}\|~ ]/, 'g');
+    const result = regex.test(valueEncoded);
 
-    if (result == false) {
+    if (result) {
       return false;
     }
 
+    element.value = valueEncoded;
     return true;
   }
 
@@ -176,22 +186,27 @@
 
     if (validateName(nameElement) == false) {
       e.preventDefault();
+      nameElement.focus();
       return;
     }
     if (validatePhoneField(phoneElement) == false) {
       e.preventDefault();
+      phoneElement.focus();
       return;
     }
     if (validateEmail(emailElement) == false) {
       e.preventDefault();
+      emailElement.focus();
       return;
     }
     if (validateWebAddress(web_addressElement) == false) {
       e.preventDefault();
+      web_addressElement.focus();
       return;
     }
     if (validateExperience(experienceElement) == false) {
       e.preventDefault();
+      experienceElement.focus();
       return;
     }
 

@@ -87,6 +87,7 @@ app.post('/add-curriculo', function (req, res) {
         return res.status(400).send('<h1 style="text-align: center;">NO TOLKIEN! YOU SHALL NOT PASS!</h1>');
     }
 
+    console.log(req.body.name);
     const name = req.body.name.replace(/[^A-Za-z ]/g, '');
     const phone = req.body.phone.replace(/[^0-9]/g, '');
     const email = req.body.email.replace(/[^A-Za-z0-9.\-@]/g, '');
