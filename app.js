@@ -1,7 +1,7 @@
 const express = require('express');
 const app = express();
 
-// Handlebars já elimina caracteres especiai ao caregar variáveis no FE
+// Handlebars já elimina caracteres especiais ao carregar variáveis no FE
 const handlebars = require('express-handlebars');
 
 // Conexão com o banco de dados
