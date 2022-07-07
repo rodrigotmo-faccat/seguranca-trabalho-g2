@@ -88,7 +88,7 @@
       return false;
     }
 
-    const regex = new RegExp(/[!"#\$%&'\(\)\*\+\-,\.\/:;<>=\?@\[\]\\\^_`\{\}\|~]/, 'g');
+    const regex = new RegExp(/[!"#\$%&'\(\)\*\+\-,\.\/:;<>=\?@\[\]\\\^_`\{\}\|~][^%20]/, 'g');
     const result = regex.test(valueEncoded);
 
     if (result) {
@@ -99,7 +99,6 @@
       return false;
     }
 
-    element.value = valueEncoded;
     return true;
   }
 
@@ -114,7 +113,6 @@
       return false;
     }
 
-    element.value = valueEncoded;
     return true;
   }
 
@@ -133,7 +131,6 @@
       return false;
     }
 
-    element.value = valueEncoded;
     return true;
   }
 
@@ -152,7 +149,6 @@
       return false;
     }
 
-    element.value = valueEncoded;
     return true;
   }
 
@@ -171,7 +167,6 @@
       return false;
     }
 
-    element.value = valueEncoded;
     return true;
   }
 
